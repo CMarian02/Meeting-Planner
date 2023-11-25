@@ -29,11 +29,18 @@ QLabel#version_text{
     font-weight: 800;
     color: #afa9a993;
 }
+
 QLabel#error_frame{
     color:#532121;
 }
+
+QLabel#profile_logo{
+    color:white;
+}
+
 QLineEdit#login_input{
     background-color:aquamarine;
 }
+
 
 
