@@ -1,21 +1,21 @@
 QMainWindow{
-    background-color: #3b2534;
+    background-color: #0b132b;
 }
 
 QLabel#left_panel{
-    background-color: white;
+    background-color: #3a506b;
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
 }
 
 QLabel#right_panel{
-    background-color:black;
+    background-color:#1c2541;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
 }
 
 QLabel#app_logo{
-    background-color:greenyellow;
+    background-color:#3a506b;
 }
 
 QLabel#login_logo{
@@ -31,7 +31,11 @@ QLabel#version_text{
 }
 
 QLabel#error_frame{
-    color:#532121;
+    color:#682929;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    font-size: 13px;
+    font-variant: small-caps;
 }
 
 QLabel#profile_logo{
@@ -39,7 +43,33 @@ QLabel#profile_logo{
 }
 
 QLineEdit#login_input{
-    background-color:aquamarine;
+    font-family:sans-serif;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 14px;
+    background-color: #3a506b;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom: 1.5px solid #0b132b;
+}
+
+QLineEdit#login_input:hover{
+    border-bottom: 1.5px solid #1c2541;
+}
+
+QPushButton#login_button{
+    border-radius: 20%;
+    color: #e6dcdc;
+    font-size: 14px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background-color:#0b132b;
+    /* border-bottom: 1px solid #3a506b; */
+}
+
+QPushButton#login_button:hover{
+    color:white;
 }
 
 
