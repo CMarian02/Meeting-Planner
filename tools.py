@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore
 #A function to close connection with databases.
 def close_db(conn, cursor):
     conn.commit()

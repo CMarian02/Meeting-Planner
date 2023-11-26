@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore
 from tools import *
 from admin_panel import *
 from user_panel import *
@@ -66,9 +66,9 @@ class MyApp(QtWidgets.QMainWindow):
                                 self.main_app = UserPage(self.username_input.text())
                                 self.main_app.show()
                     else:
-                        create_error(self,'Your username or your password was wrong!', 500, 410, 250, 20)
+                        create_error(self,'Your username or password was wrong!', 500, 410, 250, 20)
             else:
-                create_error(self, 'Your username or your password was wrong!', 500, 410, 250, 20)
+                create_error(self, 'Your username or password was wrong!', 500, 410, 250, 20)
         close_db(connection, cursor)
 
 if __name__ == '__main__':
