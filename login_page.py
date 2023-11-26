@@ -51,10 +51,10 @@ class MyApp(QtWidgets.QMainWindow):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
         for username in cursor.execute('SELECT username FROM users'):
-            if username[0] == self.username_input.text():
-                for password in cursor.execute('SELECT password FROM users WHERE username=(?)', (self.username_input.text(),)):
+            if username[0] == self.username_input.text().lower():
+                for password in cursor.execute('SELECT password FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                     if password[0] == self.password_input.text():
-                        for role in cursor.execute('SELECT admin_role FROM users WHERE username=(?)', (self.username_input.text(),)):
+                        for role in cursor.execute('SELECT admin_role FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                             if role[0] == 'Yes':
                                 print(f'loggin successfully, welcome back admin, {username[0]}')
                                 self.close()
