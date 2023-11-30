@@ -132,12 +132,14 @@ QPushButton#view_teams_button:hover{
     color:white;
 }
 
-
 QCalendarWidget#calendar_widget QToolButton{
     color: #0b132b;
     background-color:#1c2541;
 }
 
+QCalendarWidget#calendar_widget QToolButton QMenu{
+    background-color: #1c2541;
+}
 QCalendarWidget#calendar_widget QToolButton:pressed{
     color: white;
 }
@@ -152,17 +154,7 @@ QCalendarWidget#calendar_widget QAbstractItemView:enabled{
     outline: 0;
 }
 
-QCalendarWidget#calendar_widget QHeaderView:enabled{
-    color: red;
-    background-color: blue;
-}
-
-QCalendarWidget#calendar_widget SelectionMode{
-    color:red;
-}
-
 QCalendarWidget#calendar_widget QWidget{
-    background-color: #3a506b;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 700;
     font-size: 12px;
@@ -174,6 +166,8 @@ QCalendarWidget#calendar_widget QToolButton QMenu::item::selected:enabled{
 }
 
 #qt_calendar_calendarview{
+    outline: 0;
+    background-color: #3a506b;
     border: 2px solid #0b132b;
 }
 
@@ -182,7 +176,6 @@ QCalendarWidget#calendar_widget QToolButton QMenu::item::selected:enabled{
 }
 
 #qt_calendar_calendarview::item:selected{
-    border:none;
     background-color: #1c254177;
 }
 
@@ -214,6 +207,6 @@ QCalendarWidget#calendar_widget QToolButton QMenu::item::selected:enabled{
     font-size: 13px;
 }
 
-#qt_calendar_calendarview::item[date='29/11/2023']{
-    color: green;
+#qt_calendar_navigationbar{
+    background-color: #1c2541;
 }

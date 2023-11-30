@@ -61,10 +61,11 @@ class MyApp(QtWidgets.QMainWindow):
                                 self.main_app = AdminPage(self.username_input.text())
                                 self.main_app.show()
                             else:
-                                print(f'loggin successfully, welcome back user {username[0]}')
-                                self.close()
-                                self.main_app = UserPage(self.username_input.text())
-                                self.main_app.show()
+                                for team in cursor.execute('SELECT team FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
+                                    print(f'loggin successfully, welcome back user {username[0]}')
+                                    self.close()
+                                    self.main_app = UserPage(self.username_input.text(), team[0])
+                                    self.main_app.show()
                     else:
                         create_error(self,'Your username or password was wrong!', 500, 410, 250, 20)
             else:

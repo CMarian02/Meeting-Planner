@@ -4,7 +4,7 @@ import sqlite3
 
 
 class UserPage(QtWidgets.QMainWindow):
-    def __init__(self, username):
+    def __init__(self, username, team):
         super().__init__()
         self.setWindowTitle('Meetings Planner')
         self.resize(1000, 850)
@@ -28,7 +28,8 @@ class UserPage(QtWidgets.QMainWindow):
         self.view_your_teams.setGeometry(10, 500, 100, 50)  
         self.view_your_teams.setObjectName('view_teams_button')
         self.welcome_message = QtWidgets.QLabel(f'Welcome back in your account, {username}', self.centralwidget)
-        self.welcome_message.setGeometry(325, 35, 350, 50)
+        self.welcome_message.setGeometry(150, 35, 820, 50)
+        self.welcome_message.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.welcome_message.setObjectName('welcome_message')
         self.profile_icon = QtWidgets.QLabel(self.centralwidget)
         self.profile_icon.setGeometry(10, 15, 100, 100)
@@ -51,8 +52,14 @@ class UserPage(QtWidgets.QMainWindow):
         self.calendar_widget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.HorizontalHeaderFormat.SingleLetterDayNames)
         self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
         self.calendar_widget.setDateEditEnabled(False)
-        
-        self.target_date = QtCore.QDate(2023, 11, 29)
-        self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
-        self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
-        self.calendar_widget.setDateTextFormat(self.target_date, self.special_date_format)
+        self.check_mettings(team) 
+    
+    def check_mettings(self, team):
+        connection = sqlite3.connect('data/users.db')
+        cursor = connection.cursor()
+        for meetings in cursor.execute('SELECT * FROM meetings WHERE team=(?)', (team.lower(),)):
+            self.target_date = QtCore.QDate(meetings[3], meetings[2], meetings[1])
+            self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
+            self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor("darkred")))
+            self.calendar_widget.setDateTextFormat(self.target_date, self.special_date_format)
+        close_db(connection, cursor)
