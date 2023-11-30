@@ -213,3 +213,7 @@ QCalendarWidget#calendar_widget QToolButton QMenu::item::selected:enabled{
     background:transparent;
     font-size: 13px;
 }
+
+#qt_calendar_calendarview::item[date='29/11/2023']{
+    color: green;
+}

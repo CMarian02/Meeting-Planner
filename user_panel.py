@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
 from tools import * 
+import sqlite3
 
 
 class UserPage(QtWidgets.QMainWindow):
@@ -49,4 +50,9 @@ class UserPage(QtWidgets.QMainWindow):
         self.calendar_widget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
         self.calendar_widget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.HorizontalHeaderFormat.SingleLetterDayNames)
         self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
+        self.calendar_widget.setDateEditEnabled(False)
         
+        self.target_date = QtCore.QDate(2023, 11, 29)
+        self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
+        self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        self.calendar_widget.setDateTextFormat(self.target_date, self.special_date_format)
