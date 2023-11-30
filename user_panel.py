@@ -45,4 +45,8 @@ class UserPage(QtWidgets.QMainWindow):
         self.calendar_widget = QtWidgets.QCalendarWidget(self.centralwidget)
         self.calendar_widget.setGeometry(150, 150, 820, 670)
         self.calendar_widget.setObjectName('calendar_widget')
+        self.calendar_widget.setGridVisible(True)
+        self.calendar_widget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.VerticalHeaderFormat.NoVerticalHeader)
+        self.calendar_widget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.HorizontalHeaderFormat.SingleLetterDayNames)
+        self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
         
