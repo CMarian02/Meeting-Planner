@@ -17,14 +17,3 @@ def create_error(parent, error_text, y, x, width, height):
     timer = QtCore.QTimer()
     timer.singleShot(1700, error.deleteLater)
     
-#Function to display a succes text.
-def good_ans(parent, text, x, y, width, height):
-
-    succes = QtWidgets.QLabel(parent)
-    succes.setText(f'(!) {text}')
-    succes.setGeometry(x, y, width, height)
-    succes.setObjectName('succes_frame')
-    succes.setStyleSheet('style.css')
-    succes.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-    succes.show()
-    timer = QtCore.QTimer()
