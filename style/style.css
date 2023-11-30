@@ -42,6 +42,42 @@ QLabel#profile_logo{
     color:white;
 }
 
+QLabel#welcome_message{
+    color:white;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: 22px;
+    font-variant: small-caps;   
+}
+
+QLabel#profile_icon{
+    background-image:url('img/profile_icon.png');
+    border-radius:50%;
+    border: 1px solid #0b132b;
+}
+
+QLabel#profile_icon_text{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+    font-size: 50px;
+    font-variant: small-caps;   
+    color:transparent;
+}
+
+QLabel#profile_icon_text:hover{
+    color:white;
+    background-color: goldenrod;
+    border-radius: 50%;
+}
+
+QLabel#left_border{
+    background-color:#1c2541;
+}
+
+QLabel#top_border{
+    background-color:#1c2541;
+}
+
 QLineEdit#login_input{
     font-family:sans-serif;
     font-weight: 800;
@@ -72,5 +108,32 @@ QPushButton#login_button:hover{
     color:white;
 }
 
+QPushButton#view_mett_button{
+    background-color:goldenrod;
+}
 
+QPushButton#view_mett_button:hover{
+    color:white;
+}
 
+QPushButton#plan_meeting_button{
+    background-color: goldenrod;
+}
+
+QPushButton#plan_meeting_button:hover{
+    color:white;
+}
+
+QPushButton#view_teams_button{
+    background-color: goldenrod;
+}
+
+QPushButton#view_teams_button:hover{
+    color:white;
+}
+
+QCalendarWidget#calendar_widget::pane{
+    background-color: #3a506b;
+    border: 1px solid #0b132b;
+    border-radius: 10px;
+}
