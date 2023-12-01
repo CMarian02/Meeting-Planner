@@ -6,6 +6,8 @@ import sqlite3
 class UserPage(QtWidgets.QMainWindow):
     def __init__(self, username, team):
         super().__init__()
+        self.username = username
+        self.team = team
         self.setWindowTitle('Meetings Planner')
         self.resize(1000, 850)
         self.setMaximumSize(QtCore.QSize(1000, 850))
@@ -52,14 +54,29 @@ class UserPage(QtWidgets.QMainWindow):
         self.calendar_widget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.HorizontalHeaderFormat.SingleLetterDayNames)
         self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
         self.calendar_widget.setDateEditEnabled(False)
-        self.check_mettings(team) 
+        self.check_mettings(self.team) 
+        self.calendar_widget.clicked.connect(lambda: self.check_date(self.team))
     
     def check_mettings(self, team):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
-        for meetings in cursor.execute('SELECT * FROM meetings WHERE team=(?)', (team.lower(),)):
-            self.target_date = QtCore.QDate(meetings[3], meetings[2], meetings[1])
+        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+            self.target_date = QtCore.QDate(meeting_date[2], meeting_date[1], meeting_date[0])
             self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
-            self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor("darkred")))
+            self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor('#811717')))
+            self.special_date_format.setForeground(QtGui.QBrush(QtGui.QColor('#c49f9f')))
             self.calendar_widget.setDateTextFormat(self.target_date, self.special_date_format)
+        close_db(connection, cursor)
+
+    def check_date(self, team):
+        connection = sqlite3.connect('data/users.db')
+        cursor = connection.cursor()
+        selected_day = self.calendar_widget.selectedDate().day()
+        selected_month = self.calendar_widget.selectedDate().month()
+        selected_year = self.calendar_widget.selectedDate().year()
+        today_date = QtCore.QDate.currentDate()
+        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+            if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
+                for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team.lower(), selected_day, selected_month, selected_year)):
+                    print(meeting_details)
         close_db(connection, cursor)
