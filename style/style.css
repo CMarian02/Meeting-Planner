@@ -2,6 +2,10 @@ QMainWindow{
     background-color: #0b132b;
 }
 
+CustomPopup{
+    background-color: #1c2541;
+}
+
 QLabel#left_panel{
     background-color: #3a506b;
     border-top-left-radius: 50%;
@@ -78,6 +82,27 @@ QLabel#top_border{
     background-color:#1c2541;
 }
 
+QLabel#popup_title{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color:white;
+}
+
+QLabel#popup_description{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color:white;
+}
+
+QLabel#popup_meeting_date{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    color:white;
+}
+
 QLineEdit#login_input{
     font-family:sans-serif;
     font-weight: 800;
@@ -130,6 +155,12 @@ QPushButton#view_teams_button{
 
 QPushButton#view_teams_button:hover{
     color:white;
+}
+
+QPushButton#popup_close_button{
+    background-color: #682929;
+    border-radius: 50%;
+    border: 1px solid #0b132b;
 }
 
 QCalendarWidget#calendar_widget QToolButton{
@@ -209,4 +240,6 @@ QCalendarWidget#calendar_widget QToolButton QMenu::item::selected:enabled{
 
 #qt_calendar_navigationbar{
     background-color: #1c2541;
+    color: #c49f9f;
 }
+

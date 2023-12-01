@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
-from tools import * 
+from tools import *
+from custom_popup import *
 import sqlite3
 
 
@@ -78,5 +79,7 @@ class UserPage(QtWidgets.QMainWindow):
         for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
             if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                 for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team.lower(), selected_day, selected_month, selected_year)):
-                    print(meeting_details)
+                    self.meeting_date = f'{selected_day}/{selected_month}/{selected_year}'
+                    self.pop_up_message = CustomPopup('Meeting Details', meeting_details[0], meeting_details[1], meeting_details[2], self.meeting_date)
+                    self.pop_up_message.show()
         close_db(connection, cursor)
