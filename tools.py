@@ -1,12 +1,12 @@
 from PyQt6 import QtWidgets, QtCore
-#A function to close connection with databases.
 def close_db(conn, cursor):
+    close_db.__doc__ = 'A function to close connection with databases.'
     conn.commit()
     cursor.close()
     conn.close()
 
-#A function to display error for inputs.
 def create_error(parent, error_text, y, x, width, height):
+    create_error.__doc__ = 'A function to display error for inputs.'
     error = QtWidgets.QLabel(parent)
     error.setText(f'(?) {error_text}')
     error.setGeometry(x, y, width, height)
