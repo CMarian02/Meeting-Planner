@@ -11,6 +11,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.resize(800,650)
         self.setMinimumSize(QtCore.QSize(800, 650))
         self.setMaximumSize(QtCore.QSize(800, 650))
+        self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
         self.centralwidget = QtWidgets.QWidget(self)
         self.setCentralWidget(self.centralwidget)
         self.left_panel = QtWidgets.QLabel(self.centralwidget)
@@ -39,7 +40,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.login_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         self.login_button.setObjectName('login_button')
         self.login_button.clicked.connect(self.login_account)
-        self.version_text = QtWidgets.QLabel('v0.0.1', self.centralwidget)
+        self.version_text = QtWidgets.QLabel('v0.0.2', self.centralwidget)
         self.version_text.setGeometry(765, 630, 70, 20)
         self.version_text.setObjectName('version_text')
     
