@@ -133,28 +133,15 @@ QPushButton#login_button:hover{
     color:white;
 }
 
-QPushButton#view_mett_button{
-    background-color:goldenrod;
+QPushButton#sidebar_button{
+    color: white;
+    background-color: #1c2541;
+    border-radius: 50%;
+    border: 1px solid #0b132b;
 }
 
-QPushButton#view_mett_button:hover{
-    color:white;
-}
-
-QPushButton#plan_meeting_button{
-    background-color: goldenrod;
-}
-
-QPushButton#plan_meeting_button:hover{
-    color:white;
-}
-
-QPushButton#view_teams_button{
-    background-color: goldenrod;
-}
-
-QPushButton#view_teams_button:hover{
-    color:white;
+QPushButton#sidebar_active_button{
+    color: red;
 }
 
 QPushButton#popup_close_button{
