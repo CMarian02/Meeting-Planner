@@ -102,6 +102,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
         self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
         self.calendar_widget.setDateEditEnabled(False)
         self.check_mettings(self.team) 
+        self.calendar_widget.clicked.connect(lambda: self.create_meeting(self.team))
         
     
     def check_mettings(self, team):
@@ -113,6 +114,27 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
             self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor('#6D6B6D')))
             self.special_date_format.setForeground(QtGui.QBrush(QtGui.QColor('#c49f9f')))
             self.calendar_widget.setDateTextFormat(self.target_date, self.special_date_format)
+        close_db(connection, cursor)
+    
+    def create_meeting(self, team):
+        connection = sqlite3.connect('data/users.db')
+        cursor = connection.cursor()
+        selected_day = self.calendar_widget.selectedDate().day()
+        selected_month = self.calendar_widget.selectedDate().month()
+        selected_year = self.calendar_widget.selectedDate().year()
+        today_date = QtCore.QDate.currentDate()
+        if selected_day == today_date.day() and selected_month == today_date.month() and selected_year == today_date.year():
+            self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for today!')
+            self.pop_up_message.show()
+        else:
+            for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+                if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
+                    self.pop_up_message = ErrorFrame('Error', 'Meeting for this day already exists!')
+                    self.pop_up_message.show()
+                    break
+            else:
+                self.pop_up_message = CreateMeeting()
+                self.pop_up_message.show()
         close_db(connection, cursor)
 
    

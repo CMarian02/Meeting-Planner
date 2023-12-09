@@ -31,3 +31,29 @@ class MeetingDetails(QtWidgets.QWidget):
         with open('style/style.css', 'r') as f:
             stylesheet = f.read()
         self.setStyleSheet(stylesheet)
+    
+class ErrorFrame(QtWidgets.QWidget):
+    def __init__(self, window_title, error_message):
+        super().__init__()
+        self.window_title = window_title
+        self.error_message = error_message
+        self.setWindowTitle(self.window_title)
+        self.resize(300, 200)
+        self.setMaximumSize(QtCore.QSize(300, 200))
+        self.setMinimumSize(QtCore.QSize(300, 200))
+        self.error_message = QtWidgets.QLabel(self.error_message, self)
+        self.error_message.setGeometry(10, 10, 280, 50)
+        self.error_message.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.error_message.setObjectName('error_message')
+        self.close_button = QtWidgets.QPushButton('Close', self)
+        self.close_button.setGeometry(10, 150, 280, 50)
+        self.close_button.setObjectName('error_close_button')
+        self.close_button.clicked.connect(self.close)
+        with open('style/style.css', 'r') as f:
+            stylesheet = f.read()
+        self.setStyleSheet(stylesheet)
+
+class CreateMeeting(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        
