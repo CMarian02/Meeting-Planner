@@ -19,7 +19,7 @@ QLabel#right_panel{
 }
 
 QLabel#app_logo{
-    background-color:#3a506b;
+    background-image:url('img/app_logo.png')
 }
 
 QLabel#login_logo{

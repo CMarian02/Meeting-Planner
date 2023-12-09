@@ -20,7 +20,7 @@ class MyApp(QtWidgets.QMainWindow):
         self.right_panel.setGeometry(410, 150, 250, 400)
         self.right_panel.setObjectName('right_panel')
         self.app_logo = QtWidgets.QLabel(self.centralwidget)
-        self.app_logo.setGeometry(175, 250, 200, 200)
+        self.app_logo.setGeometry(150, 250, 200, 200)
         self.app_logo.setObjectName('app_logo')
         self.login_logo = QtWidgets.QLabel(self.centralwidget)
         self.login_logo.setGeometry(430, 120, 200, 200)
