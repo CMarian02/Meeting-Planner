@@ -80,6 +80,6 @@ class UserPage(QtWidgets.QMainWindow):
             if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                 for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team.lower(), selected_day, selected_month, selected_year)):
                     self.meeting_date = f'{selected_day}/{selected_month}/{selected_year}'
-                    self.pop_up_message = CustomPopup('Meeting Details', meeting_details[0], meeting_details[1], meeting_details[2], self.meeting_date)
+                    self.pop_up_message = MeetingDetails('Meeting Details', meeting_details[0], meeting_details[1], meeting_details[2], self.meeting_date)
                     self.pop_up_message.show()
         close_db(connection, cursor)

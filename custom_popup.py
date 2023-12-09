@@ -1,6 +1,6 @@
 from PyQt6 import QtWidgets, QtCore
 
-class CustomPopup(QtWidgets.QWidget):
+class MeetingDetails(QtWidgets.QWidget):
     def __init__(self, window_title, meeting_title, meeting_description, meeting_time, meeting_date):
         super().__init__()
         self.window_title = window_title
