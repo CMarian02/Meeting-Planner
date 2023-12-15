@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 
 class MeetingDetails(QtWidgets.QWidget):
     def __init__(self, window_title, meeting_title, meeting_description, meeting_time, meeting_date):
@@ -9,9 +9,8 @@ class MeetingDetails(QtWidgets.QWidget):
         self.meeting_time = meeting_time
         self.meeting_description = meeting_description
         self.setWindowTitle(self.window_title)
-        self.resize(300, 200)
-        self.setMaximumSize(QtCore.QSize(300, 200))
-        self.setMinimumSize(QtCore.QSize(300, 200))
+        self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
+        self.setFixedSize(300, 200)
         self.title = QtWidgets.QLabel(f'Meeting Title: {self.meeting_title}', self)
         self.title.setGeometry(10, 10, 280, 50)
         self.title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -31,16 +30,16 @@ class MeetingDetails(QtWidgets.QWidget):
         with open('style/style.css', 'r') as f:
             stylesheet = f.read()
         self.setStyleSheet(stylesheet)
-    
+
+   
 class ErrorFrame(QtWidgets.QWidget):
     def __init__(self, window_title, error_message):
         super().__init__()
         self.window_title = window_title
         self.error_message = error_message
         self.setWindowTitle(self.window_title)
-        self.resize(300, 200)
-        self.setMaximumSize(QtCore.QSize(300, 200))
-        self.setMinimumSize(QtCore.QSize(300, 200))
+        self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
+        self.setFixedSize(300, 200)
         self.error_message = QtWidgets.QLabel(self.error_message, self)
         self.error_message.setGeometry(10, 10, 280, 50)
         self.error_message.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -56,4 +55,7 @@ class ErrorFrame(QtWidgets.QWidget):
 class CreateMeeting(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.window_title = 'Create Meeting'
+        self.setWindowTitle(self.window_title)
+        self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
         
