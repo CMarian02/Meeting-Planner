@@ -77,6 +77,8 @@ class CreateMeeting(QtWidgets.QWidget):
         self.date_input.setObjectName('date_input')
         self.time_input = QtWidgets.QTimeEdit(self)
         self.time_input.setDisplayFormat('HH:mm')
+        # self.time_input.setMinimumTime(QtCore.QTime.currentTime()) #TODO: when you switch day in another, you can add every time.
+        # self.time_input.setMaximumTime(QtCore.QTime(23, 59)) #TODO: when you switch day in another, you can add every time.
         self.time_input.setGeometry(10, 200, 280, 50)
         self.time_input.setObjectName('time_input')
         self.create_button = QtWidgets.QPushButton('Create', self)
@@ -85,13 +87,14 @@ class CreateMeeting(QtWidgets.QWidget):
         self.create_button.clicked.connect(self.create_meeting)
     
     def create_meeting(self):
-        
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
         if len(self.title_input.text()) < 3 or len(self.title_input.text()) > 11:
             create_error(self, 'Title must be between 3 and 10 characters!', 10, 10, 280, 50)
         elif len(self.description_input.text()) < 3 or len(self.description_input.text()) > 21:
             create_error(self, 'Description must be between 3 and 20 characters!', 10, 70, 280, 50)
+        elif self.date_input.date() == self.selected_date and self.time_input.time() < QtCore.QTime.currentTime():
+            create_error(self, 'You cannot create meeting in the past!', 10, 130, 280, 50)
         else:
             cursor.execute(f"INSERT INTO meetings VALUES ('{self.team_name}', '{self.date_input.date().day()}', '{self.date_input.date().month()}', '{self.date_input.date().year()}', '{self.title_input.text()}', '{self.description_input.text()}', '{self.time_input.time().toString('HH:mm')}')")
             close_db(connection, cursor)
