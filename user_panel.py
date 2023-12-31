@@ -62,6 +62,7 @@ class UserPage(QtWidgets.QMainWindow):
 
     def switch_frame(self, page_number: int):
         if page_number == 1:
+            self.view_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.view_frame)
             self.view_mett_button.setObjectName('sidebar_active_button')
             self.view_mett_button.setStyleSheet('style.css')
@@ -69,6 +70,7 @@ class UserPage(QtWidgets.QMainWindow):
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
         elif page_number == 2:
+            self.plan_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.plan_frame)
             self.plan_meeting_button.setObjectName('sidebar_active_button')
             self.plan_meeting_button.setStyleSheet('style.css')
@@ -76,6 +78,7 @@ class UserPage(QtWidgets.QMainWindow):
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
         elif page_number == 3:
+            # self.teams_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.teams_frame)
             self.view_your_teams.setObjectName('sidebar_active_button')
             self.view_your_teams.setStyleSheet('style.css')
@@ -117,6 +120,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
     def create_meeting(self, team):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
+        selected_date = self.calendar_widget.selectedDate()
         selected_day = self.calendar_widget.selectedDate().day()
         selected_month = self.calendar_widget.selectedDate().month()
         selected_year = self.calendar_widget.selectedDate().year()
@@ -131,7 +135,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
                     self.pop_up_message.show()
                     break
             else:
-                self.pop_up_message = CreateMeeting()
+                self.pop_up_message = CreateMeeting(team, selected_date)
                 self.pop_up_message.show()
         close_db(connection, cursor)
 

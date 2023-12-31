@@ -1,4 +1,6 @@
 from PyQt6 import QtWidgets, QtCore, QtGui
+import sqlite3
+from tools import *
 
 class MeetingDetails(QtWidgets.QWidget):
     def __init__(self, window_title, meeting_title, meeting_description, meeting_time, meeting_date):
@@ -53,9 +55,45 @@ class ErrorFrame(QtWidgets.QWidget):
         self.setStyleSheet(stylesheet)
 
 class CreateMeeting(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, team_name, selected_date):
         super().__init__()
+        self.team_name = team_name
+        self.selected_date = selected_date
         self.window_title = 'Create Meeting'
         self.setWindowTitle(self.window_title)
         self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
+        self.setFixedSize(400, 300)
+        self.title_input = QtWidgets.QLineEdit(self)
+        self.title_input.setGeometry(10, 10, 380, 50)
+        self.title_input.setPlaceholderText('Title')
+        self.title_input.setObjectName('title_input')
+        self.description_input = QtWidgets.QLineEdit(self)
+        self.description_input.setGeometry(10, 70, 380, 50)
+        self.description_input.setPlaceholderText('Description')
+        self.description_input.setObjectName('description_input')
+        self.date_input = QtWidgets.QDateEdit(self)
+        self.date_input.setMinimumDate(self.selected_date)
+        self.date_input.setGeometry(10, 130, 280, 50)
+        self.date_input.setObjectName('date_input')
+        self.time_input = QtWidgets.QTimeEdit(self)
+        self.time_input.setDisplayFormat('HH:mm')
+        self.time_input.setGeometry(10, 200, 280, 50)
+        self.time_input.setObjectName('time_input')
+        self.create_button = QtWidgets.QPushButton('Create', self)
+        self.create_button.setGeometry(10, 260, 280, 50)
+        self.create_button.setObjectName('create_button')
+        self.create_button.clicked.connect(self.create_meeting)
+    
+    def create_meeting(self):
         
+        connection = sqlite3.connect('data/users.db')
+        cursor = connection.cursor()
+        if len(self.title_input.text()) < 3 or len(self.title_input.text()) > 11:
+            create_error(self, 'Title must be between 3 and 10 characters!', 10, 10, 280, 50)
+        elif len(self.description_input.text()) < 3 or len(self.description_input.text()) > 21:
+            create_error(self, 'Description must be between 3 and 20 characters!', 10, 70, 280, 50)
+        else:
+            cursor.execute(f"INSERT INTO meetings VALUES ('{self.team_name}', '{self.date_input.date().day()}', '{self.date_input.date().month()}', '{self.date_input.date().year()}', '{self.title_input.text()}', '{self.description_input.text()}', '{self.time_input.time().toString('HH:mm')}')")
+            close_db(connection, cursor)
+            create_error(self, 'Meeting created successfully!', 10, 10, 280, 50)
+            self.close()
