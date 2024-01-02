@@ -94,7 +94,11 @@ class UserPage(QtWidgets.QMainWindow):
             self.plan_frame.pop_up_message.close()
         if self.view_frame.pop_up_message is not None:
             self.view_frame.pop_up_message.close()
-
+    
+    def closeEvent(self, event):
+        self.close_pop_up_message()
+        event.accept()
+        
 class PlanMeetingsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
