@@ -62,6 +62,7 @@ class UserPage(QtWidgets.QMainWindow):
 
     def switch_frame(self, page_number: int):
         if page_number == 1:
+            self.close_pop_up_message()
             self.view_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.view_frame)
             self.view_mett_button.setObjectName('sidebar_active_button')
@@ -70,6 +71,7 @@ class UserPage(QtWidgets.QMainWindow):
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
         elif page_number == 2:
+            self.close_pop_up_message()
             self.plan_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.plan_frame)
             self.plan_meeting_button.setObjectName('sidebar_active_button')
@@ -78,6 +80,7 @@ class UserPage(QtWidgets.QMainWindow):
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
         elif page_number == 3:
+            self.close_pop_up_message()
             # self.teams_frame.check_mettings(self.team)
             self.stack_container.setCurrentWidget(self.teams_frame)
             self.view_your_teams.setObjectName('sidebar_active_button')
@@ -85,15 +88,19 @@ class UserPage(QtWidgets.QMainWindow):
             for button in [self.view_mett_button, self.plan_meeting_button]:
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
-
-
         
+    def close_pop_up_message(self):
+        if self.plan_frame.pop_up_message is not None:
+            self.plan_frame.pop_up_message.close()
+        if self.view_frame.pop_up_message is not None:
+            self.view_frame.pop_up_message.close()
 
 class PlanMeetingsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
         self.username = username
         self.team = team
+        self.pop_up_message = None
         self.calendar_widget = QtWidgets.QCalendarWidget(self)
         self.calendar_widget.setGeometry(150, 150, 820, 670)
         self.calendar_widget.setObjectName('calendar_widget')
@@ -144,11 +151,13 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
 class ViewTeamsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
+        self.pop_up_message = None
         pass
 
 class ViewMeetingsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
+        self.pop_up_message = None
         self.username = username
         self.team = team
         self.calendar_widget = QtWidgets.QCalendarWidget(self)
@@ -179,7 +188,6 @@ class ViewMeetingsFrame(QtWidgets.QFrame):
         selected_day = self.calendar_widget.selectedDate().day()
         selected_month = self.calendar_widget.selectedDate().month()
         selected_year = self.calendar_widget.selectedDate().year()
-        today_date = QtCore.QDate.currentDate()
         for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
             if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                 for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team.lower(), selected_day, selected_month, selected_year)):
