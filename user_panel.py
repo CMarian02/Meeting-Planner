@@ -3,7 +3,6 @@ from tools import *
 from custom_popup import *
 import sqlite3
 
-
 class UserPage(QtWidgets.QMainWindow):
     def __init__(self, username, team):
         super().__init__()
@@ -97,8 +96,7 @@ class UserPage(QtWidgets.QMainWindow):
     
     def closeEvent(self, event):
         self.close_pop_up_message()
-        event.accept()
-        
+
 class PlanMeetingsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
@@ -114,8 +112,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
         self.calendar_widget.setFirstDayOfWeek(QtCore.Qt.DayOfWeek.Monday)
         self.calendar_widget.setDateEditEnabled(False)
         self.check_mettings(self.team) 
-        self.calendar_widget.clicked.connect(lambda: self.create_meeting(self.team))
-        
+        self.calendar_widget.clicked.connect(lambda: self.create_meeting(self.team))  
     
     def check_mettings(self, team):
         connection = sqlite3.connect('data/users.db')
@@ -141,16 +138,17 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
             self.pop_up_message.show()
         else:
             for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+                print(meeting_date[0], selected_day)
+                print(meeting_date[1], selected_month)
+                print(meeting_date[2], selected_year)
                 if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                     self.pop_up_message = ErrorFrame('Error', 'Meeting for this day already exists!')
                     self.pop_up_message.show()
                     break
             else:
-                self.pop_up_message = CreateMeeting(team, selected_date)
-                self.pop_up_message.show()
+                    self.pop_up_message = CreateMeeting(team, selected_date)
+                    self.pop_up_message.show()
         close_db(connection, cursor)
-
-   
 
 class ViewTeamsFrame(QtWidgets.QFrame):
     def __init__(self, username, team):

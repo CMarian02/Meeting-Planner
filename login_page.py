@@ -42,7 +42,6 @@ class MyApp(QtWidgets.QMainWindow):
         self.version_text.setGeometry(765, 630, 70, 20)
         self.version_text.setObjectName('version_text')
 
-    
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key.Key_Enter or event.key() == QtCore.Qt.Key.Key_Return:
             self.login_account()

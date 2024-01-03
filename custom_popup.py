@@ -33,7 +33,6 @@ class MeetingDetails(QtWidgets.QWidget):
             stylesheet = f.read()
         self.setStyleSheet(stylesheet)
 
-   
 class ErrorFrame(QtWidgets.QWidget):
     def __init__(self, window_title, error_message):
         super().__init__()
