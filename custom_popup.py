@@ -68,7 +68,7 @@ class CreateMeeting(QtWidgets.QWidget):
         self.window_title = 'Create Meeting'
         self.setWindowTitle(self.window_title)
         self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
-        self.setFixedSize(400, 320)
+        self.setFixedSize(400, 360)
         self.title_input = QtWidgets.QLineEdit(self)
         self.title_input.setGeometry(10, 10, 380, 50)
         self.title_input.setPlaceholderText('Title')
@@ -89,7 +89,7 @@ class CreateMeeting(QtWidgets.QWidget):
         self.time_input.setGeometry(10, 200, 380, 50)
         self.time_input.setObjectName('time_input')
         self.create_button = QtWidgets.QPushButton('Create', self)
-        self.create_button.setGeometry(10, 260, 380, 50)
+        self.create_button.setGeometry(10, 305, 380, 50)
         self.create_button.setObjectName('create_button')
         self.create_button.clicked.connect(self.create_meeting)
     
@@ -97,9 +97,9 @@ class CreateMeeting(QtWidgets.QWidget):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
         if len(self.title_input.text()) < 3 or len(self.title_input.text()) > 11:
-            create_error(self, 'Title must be between 3 and 10 characters!', 10, 10, 280, 50)
+            create_error(self, 'Title must be between 3 and 10 characters!', 250, 50, 320, 50)
         elif len(self.description_input.text()) < 3 or len(self.description_input.text()) > 21:
-            create_error(self, 'Description must be between 3 and 20 characters!', 10, 70, 280, 50)
+            create_error(self, 'Description must be between 3 and 20 characters!', 250, 50, 320, 50)
         else:
             cursor.execute(f"INSERT INTO meetings VALUES ('{self.team_name}', '{self.date_input.date().day()}', '{self.date_input.date().month()}', '{self.date_input.date().year()}', '{self.title_input.text()}', '{self.description_input.text()}', '{self.time_input.time().toString('HH:mm')}')")
             close_db(connection, cursor)

@@ -136,7 +136,6 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
             self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for today!')
             self.pop_up_message.show()
         elif selected_date < today_date:
-            print(selected_date < today_date)
             self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for past!')
             self.pop_up_message.show()
         else:
