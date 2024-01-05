@@ -4,10 +4,10 @@ from admin_panel import *
 from user_panel import *
 import sqlite3, sys
 
-class MyApp(QtWidgets.QMainWindow):
+class LoginPage(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Meetings Planner")
+        self.setWindowTitle("Meeting Planner")
         self.setFixedSize(800,650)
         self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
         self.centralwidget = QtWidgets.QWidget(self)
@@ -57,14 +57,13 @@ class MyApp(QtWidgets.QMainWindow):
                             if role[0] == 'Yes':
                                 print(f'loggin successfully, welcome back admin, {username[0]}')
                                 self.close()
-                                self.main_app = AdminPage(self.username_input.text())
-                                self.main_app.show()
+                                self.displayed_page = AdminPage(self.username_input.text())
+                                self.displayed_page.show()
                             else:
                                 for team in cursor.execute('SELECT team FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
-                                    print(f'loggin successfully, welcome back user {username[0]}')
                                     self.close()
-                                    self.main_app = UserPage(self.username_input.text(), team[0])
-                                    self.main_app.show()
+                                    self.displayed_page = UserPage(self.username_input.text(), team[0])
+                                    self.displayed_page.show()
                     else:
                         create_error(self,'Your username or password was wrong!', 550, 410, 250, 20)
             else:
@@ -76,6 +75,6 @@ if __name__ == '__main__':
     with open('style/style.css', 'r') as f:
         stylesheet = f.read()
     app.setStyleSheet(stylesheet)
-    window = MyApp()
+    window = LoginPage()
     window.show()
     sys.exit(app.exec())

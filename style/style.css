@@ -1,12 +1,10 @@
 MeetingDetails,
 CreateMeeting,
+ErrorFrame,
 QMainWindow{
     background-color: #040926;
 }
-ErrorFrame{
-    background-color: #040926;
-    border-radius: 20px;
-}
+
 QLabel#left_panel{
     background-color: #251351;
     border-top-left-radius: 50%;
@@ -77,8 +75,9 @@ QLabel#top_border{
 
 QLabel#meeting_info{
     font-family: Roboto;
-    font-size: 25px;
-    color: greenyellow;
+    font-size: 16px;
+    font-weight: 800;
+    color: white;
 }
 
 QLabel#error_frame{
@@ -96,6 +95,11 @@ QLabel#error_message{
     font-size: 16px;
     font-variant: small-caps;
 
+}
+
+QLabel#meeting_details_underline{
+    border: none;
+    border-bottom: 2px solid white;
 }
 
 QLineEdit#login_input{
@@ -185,6 +189,11 @@ QPushButton#close_button{
     color: white;
     font-weight: 800;
     border: 1px solid #040926;
+}
+
+QPushButton#close_button:hover{
+    color: #f0aaaa;
+    border: 1px solid #682929;
 }
 
 QCalendarWidget#calendar_widget QToolButton{

@@ -8,10 +8,10 @@ class UserPage(QtWidgets.QMainWindow):
         super().__init__()
         self.username = username
         self.team = team
-        self.view_frame = ViewMeetingsFrame(self.username, self.team)
+        self.view_frame = ViewMeetingFrame(self.username, self.team)
         self.plan_frame = PlanMeetingsFrame(self.username, self.team)
         self.teams_frame = ViewTeamsFrame(self.username, self.team)
-        self.setWindowTitle('Meetings Planner')
+        self.setWindowTitle('Meeting Planner')
         self.setFixedSize(1000, 850)
         self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
         self.stack_container = QtWidgets.QStackedWidget()
@@ -30,17 +30,16 @@ class UserPage(QtWidgets.QMainWindow):
         self.view_mett_button.setGeometry(10, 300, 100, 50)
         self.view_mett_button.setObjectName('sidebar_active_button')
         self.view_mett_button.clicked.connect(lambda: self.switch_frame(1))
-        self.view_mett_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         self.plan_meeting_button = QtWidgets.QPushButton('PLAN MEET', self)
         self.plan_meeting_button.setGeometry(10, 400, 100, 50)
         self.plan_meeting_button.setObjectName('sidebar_button')
         self.plan_meeting_button.clicked.connect(lambda: self.switch_frame(2))
-        self.plan_meeting_button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         self.view_your_teams = QtWidgets.QPushButton('VIEW TEAM', self)
         self.view_your_teams.setGeometry(10, 500, 100, 50)  
         self.view_your_teams.setObjectName('sidebar_button')
         self.view_your_teams.clicked.connect(lambda: self.switch_frame(3))
-        self.view_your_teams.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
+        for button in [self.view_mett_button, self.plan_meeting_button, self.view_your_teams]:
+            button.setCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         self.welcome_message = QtWidgets.QLabel(f'Welcome back in your account, {username}', self)
         self.welcome_message.setGeometry(150, 35, 820, 50)
         self.welcome_message.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -87,13 +86,13 @@ class UserPage(QtWidgets.QMainWindow):
             for button in [self.view_mett_button, self.plan_meeting_button]:
                 button.setObjectName('sidebar_button')
                 button.setStyleSheet('style.css')
-        
+    #This function checks if the frame in that class is active, if so, it will be closed.  
     def close_pop_up_message(self):
         if self.plan_frame.pop_up_message is not None:
             self.plan_frame.pop_up_message.close()
         if self.view_frame.pop_up_message is not None:
             self.view_frame.pop_up_message.close()
-    
+            
     def closeEvent(self, event):
         self.close_pop_up_message()
 
@@ -157,7 +156,7 @@ class ViewTeamsFrame(QtWidgets.QFrame):
         self.pop_up_message = None
         pass
 
-class ViewMeetingsFrame(QtWidgets.QFrame):
+class ViewMeetingFrame(QtWidgets.QFrame):
     def __init__(self, username, team):
         super().__init__()
         self.pop_up_message = None
