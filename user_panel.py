@@ -4,13 +4,14 @@ from custom_popup import *
 import sqlite3
 
 class UserPage(QtWidgets.QMainWindow):
-    def __init__(self, username, team):
+    def __init__(self, username, team, role):
         super().__init__()
         self.username = username
         self.team = team
+        self.role = role
         self.view_frame = ViewMeetingFrame(self.username, self.team)
         self.plan_frame = PlanMeetingsFrame(self.username, self.team)
-        self.teams_frame = ViewTeamsFrame(self.username, self.team)
+        self.teams_frame = ViewTeamsFrame(self.username, self.team, self.role)
         self.setWindowTitle('Meeting Planner')
         self.setFixedSize(1000, 850)
         self.setWindowIcon(QtGui.QIcon('img/favicon.png'))
@@ -150,10 +151,28 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
         close_db(connection, cursor)
 
 class ViewTeamsFrame(QtWidgets.QFrame):
-    def __init__(self, username, team):
+    def __init__(self, username, team, role):
         super().__init__()
         self.pop_up_message = None
-        pass
+        self.team = team
+        self.username = username
+        self.role = role
+
+        self.team_title = QtWidgets.QLabel(self.team, self)
+        self.team_title.setGeometry(150, 150, 820, 50)
+        self.team_title.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.team_title.setObjectName('team_info')
+        self.team_title_underline = QtWidgets.QLabel(self)
+        self.team_title_underline.setGeometry(250, 200, 600, 4)
+        self.team_title_underline.setObjectName('team_underline')
+        self.team_role = QtWidgets.QLabel(f'{self.role}', self)
+        self.team_role.setGeometry(150, 250, 820, 50)
+        self.team_role.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.team_role.setObjectName('team_info')
+        self.team_role_underline = QtWidgets.QLabel(self)
+        self.team_role_underline.setGeometry(250, 300, 600, 4)
+        self.team_role_underline.setObjectName('team_underline')
+
 
 class ViewMeetingFrame(QtWidgets.QFrame):
     def __init__(self, username, team):

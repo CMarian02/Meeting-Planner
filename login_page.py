@@ -53,7 +53,7 @@ class LoginPage(QtWidgets.QMainWindow):
             if username[0] == self.username_input.text().lower():
                 for password in cursor.execute('SELECT password FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                     if password[0] == self.password_input.text():
-                        for role in cursor.execute('SELECT admin_role FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
+                        for role in cursor.execute('SELECT team_role FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                             if role[0] == 'Yes':
                                 print(f'loggin successfully, welcome back admin, {username[0]}')
                                 self.close()
@@ -62,7 +62,7 @@ class LoginPage(QtWidgets.QMainWindow):
                             else:
                                 for team in cursor.execute('SELECT team FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                                     self.close()
-                                    self.displayed_page = UserPage(self.username_input.text(), team[0])
+                                    self.displayed_page = UserPage(self.username_input.text(), team[0], role[0])
                                     self.displayed_page.show()
                     else:
                         create_error(self,'Your username or password was wrong!', 550, 410, 250, 20)
