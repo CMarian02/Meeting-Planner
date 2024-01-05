@@ -15,5 +15,5 @@ def create_error(parent, error_text, y, x, width, height):
     error.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
     error.show()
     timer = QtCore.QTimer()
-    timer.singleShot(1700, error.deleteLater)
+    timer.singleShot(2000, error.deleteLater)
     
