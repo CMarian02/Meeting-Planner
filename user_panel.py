@@ -117,7 +117,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
     def check_mettings(self, team):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
-        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team,)):
             self.target_date = QtCore.QDate(meeting_date[2], meeting_date[1], meeting_date[0])
             self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
             self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor('#6D6B6D')))
@@ -140,7 +140,7 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
             self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for past!')
             self.pop_up_message.show()
         else:
-            for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+            for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team,)):
                 if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                     self.pop_up_message = ErrorFrame('Error', 'Meeting for this day already exists!')
                     self.pop_up_message.show()
@@ -165,7 +165,7 @@ class ViewTeamsFrame(QtWidgets.QFrame):
         self.team_title_underline = QtWidgets.QLabel(self)
         self.team_title_underline.setGeometry(250, 200, 600, 4)
         self.team_title_underline.setObjectName('team_underline')
-        self.team_role = QtWidgets.QLabel(f'{self.role}', self)
+        self.team_role = QtWidgets.QLabel(f'{self.role.capitalize()}', self)
         self.team_role.setGeometry(150, 250, 820, 50)
         self.team_role.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.team_role.setObjectName('team_info')
@@ -194,7 +194,7 @@ class ViewMeetingFrame(QtWidgets.QFrame):
     def check_mettings(self, team):
         connection = sqlite3.connect('data/users.db')
         cursor = connection.cursor()
-        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team,)):
             self.target_date = QtCore.QDate(meeting_date[2], meeting_date[1], meeting_date[0])
             self.special_date_format = self.calendar_widget.dateTextFormat(self.target_date)
             self.special_date_format.setBackground(QtGui.QBrush(QtGui.QColor('#811717')))
@@ -208,9 +208,9 @@ class ViewMeetingFrame(QtWidgets.QFrame):
         selected_day = self.calendar_widget.selectedDate().day()
         selected_month = self.calendar_widget.selectedDate().month()
         selected_year = self.calendar_widget.selectedDate().year()
-        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
+        for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team,)):
             if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
-                for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team.lower(), selected_day, selected_month, selected_year)):
+                for meeting_details in cursor.execute('SELECT title, description, hour FROM meetings WHERE team=(?) AND day=(?) AND month=(?) AND year=(?)', (team, selected_day, selected_month, selected_year)):
                     self.meeting_date = f'{selected_day}/{selected_month}/{selected_year}'
                     self.pop_up_message = MeetingDetails('Meeting Details', meeting_details[0], meeting_details[1], meeting_details[2], self.meeting_date)
                     self.pop_up_message.show()
