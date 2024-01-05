@@ -136,11 +136,12 @@ class PlanMeetingsFrame(QtWidgets.QFrame):
         if selected_day == today_date.day() and selected_month == today_date.month() and selected_year == today_date.year():
             self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for today!')
             self.pop_up_message.show()
+        elif selected_date < today_date:
+            print(selected_date < today_date)
+            self.pop_up_message = ErrorFrame('Error', 'You can\'t create meeting for past!')
+            self.pop_up_message.show()
         else:
             for meeting_date in cursor.execute('SELECT day, month, year FROM meetings WHERE team=(?)', (team.lower(),)):
-                print(meeting_date[0], selected_day)
-                print(meeting_date[1], selected_month)
-                print(meeting_date[2], selected_year)
                 if meeting_date[0] == selected_day and meeting_date[1] == selected_month and meeting_date[2] == selected_year:
                     self.pop_up_message = ErrorFrame('Error', 'Meeting for this day already exists!')
                     self.pop_up_message.show()
