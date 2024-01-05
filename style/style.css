@@ -1,10 +1,12 @@
 MeetingDetails,
-ErrorFrame,
 CreateMeeting,
 QMainWindow{
     background-color: #040926;
 }
-
+ErrorFrame{
+    background-color: #040926;
+    border-radius: 20px;
+}
 QLabel#left_panel{
     background-color: #251351;
     border-top-left-radius: 50%;
@@ -31,14 +33,6 @@ QLabel#version_text{
     font-size: 11px;
     font-weight: 800;
     color: #f5efef93;
-}
-
-QLabel#error_frame{
-    color:#682929;
-    font-family: Roboto;
-    font-weight: 500;
-    font-size: 13px;
-    font-variant: small-caps;
 }
 
 QLabel#profile_logo{
@@ -81,27 +75,29 @@ QLabel#top_border{
     background-color:#251351;
 }
 
-QLabel#popup_title{
-    font-family:Roboto;
-    font-weight: 500;
-    font-size: 20px;
-    color:white;
+QLabel#meeting_info{
+    font-family: Roboto;
+    font-size: 25px;
+    color: greenyellow;
 }
 
-QLabel#popup_description{
-    font-family:Roboto;
+QLabel#error_frame{
+    color:#682929;
+    font-family: Roboto;
     font-weight: 500;
-    font-size: 15px;
-    color:white;
+    font-size: 13px;
+    font-variant: small-caps;
 }
 
-QLabel#popup_meeting_date{
-    font-family:Roboto;
-    font-weight: 500;
-    font-size: 15px;
-    color:white;
+QLabel#error_message{
+    color:#682929;
+    font-family: Roboto;
+    font-weight: 800;
+    font-size: 16px;
+    font-variant: small-caps;
+
 }
-/* Edit Later*/
+
 QLineEdit#login_input{
     font-family: Roboto;
     color: white;
@@ -115,6 +111,21 @@ QLineEdit#login_input{
 
 QLineEdit#login_input:hover{
     border-bottom: 2px solid #040926;
+    color: #ffe6e6;
+}
+
+QLineEdit#createmeet_input{
+    font-family: Roboto;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid white;
+}
+
+QLineEdit#createmeet_input:hover{
+    border-bottom: 1px solid #251351;
     color: #ffe6e6;
 }
 
@@ -136,7 +147,7 @@ QPushButton#sidebar_button{
     color: white;
     font-family: Roboto;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 800;
     background-color: #251351;
     border-radius: 10px;
 }
@@ -145,14 +156,34 @@ QPushButton#sidebar_active_button{
     color: #5e0e0e;
     font-family: Roboto;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 800;
     background-color: #251351;
     border-radius: 10px;
 }
 
-QPushButton#popup_close_button{
+QPushButton#create_button{
+    background-color: #251351;
+    border-radius: 20%;
+    border: 1px solid #040926;
+    color: white;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 800;
+
+}
+
+QPushButton#create_button:hover{
+    background-color: #040926;
+    color: #f0aaaa;
+    border: 1px solid #251351;
+}
+
+QPushButton#close_button{
     background-color: #682929;
-    border-radius: 50%;
+    border-radius: 20%;
+    font-family: Roboto;
+    color: white;
+    font-weight: 800;
     border: 1px solid #040926;
 }
 
@@ -239,3 +270,32 @@ QCalendarWidget#calendar_widget QWidget{
     background-color: #251351;
 }
 
+QDateEdit#date_input{
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 12px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+QDateEdit#date_input:hover{
+    border-bottom: 1px solid #251351;
+    color: #ffe6e6;
+}
+
+QTimeEdit#time_input{
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 12px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+}
+
+QTimeEdit#time_input:hover{
+    border-bottom: 1px solid #251351;
+    color: #ffe6e6;
+}
