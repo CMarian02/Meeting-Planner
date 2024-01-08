@@ -114,6 +114,13 @@ QLabel#team_underline{
     border-bottom: 2px solid white;
 }
 
+QLabel#main_title{
+    font-family: Roboto;
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+}
+
 QLineEdit#login_input{
     font-family: Roboto;
     color: white;
@@ -143,6 +150,16 @@ QLineEdit#createmeet_input{
 QLineEdit#createmeet_input:hover{
     border-bottom: 1px solid #251351;
     color: #ffe6e6;
+}
+
+QLineEdit#default_input{
+    border: none;
+    border-bottom: 1px solid white;
+    font-family: sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: white;
+    background-color: transparent;
 }
 
 QPushButton#login_button{

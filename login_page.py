@@ -54,7 +54,7 @@ class LoginPage(QtWidgets.QMainWindow):
                 for password in cursor.execute('SELECT password FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
                     if password[0] == self.password_input.text():
                         for role in cursor.execute('SELECT team_role FROM users WHERE username=(?)', (self.username_input.text().lower(),)):
-                            if role[0] == 'Yes':
+                            if role[0] == 'Admin':
                                 print(f'loggin successfully, welcome back admin, {username[0]}')
                                 self.close()
                                 self.displayed_page = AdminPage(self.username_input.text())
